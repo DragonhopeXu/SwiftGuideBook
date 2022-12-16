@@ -306,4 +306,277 @@ hasPrefix("字符或字符串") 检查是否有特定前缀
 
 hasSuffix("字符或字符串")检查是否有特定后缀
 
+## 集合类型
+
+### 数组(Ayyay)
+
+#### 创建一个空数组
+
+```
+var someInts: [Int] = []
+```
+
+```
+someInts.append(3)
+//someInts现在包含了一个Int值
+someInts = []
+//someInts现在为空数组，但还是Int类型
+```
+
+#### 创建一个带有默认值的数组
+
+repeating表示初始值，count表示初始值重复的次数
+
+```
+var threeDoubles = Array(repeating: 0.0, count: 3)
+// threeDoubles 是一种[Double]数组，等价于[0.0, 0.0, 0.0]
+```
+
+#### 通过两个数组相加创建一个数组
+
+用+连接
+
+#### 用数组字面量构造数组
+
+```
+var shoppingList: [String] = ["Eggs", "Milk"]
+```
+
+如上构造了一个有两个初始值的shoppingList
+
+#### 访问和修改数组
+
+数组名.count
+
+判断是否为空用 数组名.isEmpty
+
+数组后面添加新数据项 数组名.appent("添加的东西")
+
+用下标语法可以直接访问数组中的数据 数组名[位数]
+
+在某个特定索引值之前添加数据 数组名.insert("数据", at: 位数)
+
+在某个特定索引值中删除数据的某一项 数组名.remove(at: 位数)
+
+### 集合(Sets)
+
+#### 创建和构造一个空的集合
+
+Set<Element> 其中Element表示集合允许存储的类型
+
+```
+var letters = Set<Character>
+```
+
+其他大致和数组一样
+
+#### 集合操作
+
+intersection(_:) 取交集
+
+symmetricDifference(_:)取不想交的集合
+
+union(_:)取并集
+
+subtracting(_:)取a不包含b的集合
+
+使用举例
+
+```
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+
+oddDigits.union(evenDigits).sorted()
+//[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+### 字典(Dictionary)
+
+#### 创建一个空字典
+
+字典使用Dictonary<Key, Value>定义 其中key是可以在字典中被用作键的类型，Value是字典中对应于这些键所存储的数据类型
+
+```
+var namesOfIntegers: [Int: String] = [:]
+//namesOfIntegers 是一个空的[Int: String]字典
+```
+
+#### 用字典字面量创建字典
+
+下列airports字典被声明为[String: String]类型，包含两个键值对
+
+```
+var airports: [String: String] = ["YYZ": "Toronto", "DUB": "Dublin"]
+```
+
+## 控制流
+
+### For-In循环
+
+用for-in遍历数组的所有元素
+
+```
+let names = ["Anna", "Alex"]
+for name in names {
+    print("Hello, \(name)!")
+}
+```
+
+*如果不需要用到name，那么name可以用_代替*
+
+### While循环
+
+```
+while condition {
+        statements
+}
+```
+
+### 条件语句
+
+#### If
+
+#### Switch
+
+### 控制转移语句
+
+#### continue
+
+#### break
+
+## 函数
+
+### 函数的定义与调用
+
+定义一个函数时需要定义多个有名字和类型的值称为参数
+
+定义某种类型的值作为函数执行结束时的输出，称为返回类型
+
+*函数实参必须和函数参数表里的参数的顺序一致*
+
+```
+func greet(person: String) -> String {
+    let greeting = "Hello, " + person + "!"
+    return greeting
+}
+```
+
+以上函数函数名为greet(person:)，需要定义一个输入参数，叫做person的String值，和一个String的返回值
+
+```
+print(greet(person: "Mike"))
+//打印"Hello, Mike!"
+```
+
+在调用这个函数时，需要在圆括号中传给它一个String类型的实参
+
+### 函数参数与返回值
+
+#### 无参数函数
+
+```
+func sayHelloWorld() -> String {
+    return "hello world"
+}
+print(sayHelloWorld())
+```
+
+以上函数没有参数，被调用时返回固定的String消息
+
+#### 多参数函数
+
+```
+func greet(person: String, alreadyGreeted: Bool) -> String {
+    if alreadyGreeted {
+        return greetAgain(person: person)
+    } else {
+        rerurn greet(person: person)
+    }
+}
+print(greet(person: "Tim", alreadyGreeted: true))
+//打印"Hello again,Tim!"
+```
+
+以上函数有两个参数，需要两个参数正常使用
+
+#### 无返回值函数
+
+```
+func greet(person: String) {
+    print("Hello, \(person)!")
+}
+greet(person: "Dave")
+//打印"Hello, Dave!"
+```
+
+以上函数不需要返回值，所以没有->
+
+#### 多重返回值函数
+
+```
+func minMax(array: [Int]) -> (min: Int, max: Int) {
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        } else {
+            currentMax = value
+        }
+    }
+    return (currentMin, currentMax)
+}
+```
+
+以上函数定义了一个minMax(array:)函数，在数组中找出最大最小值
+
+函数返回两个Int值的元组，被标记为min和max
+
+#### 可选元组返回类型
+
+如果函数返回的元组类型有可能整个元组都没有值，可以用可选的元组返回类型来声明元组可以说nil，可以通过在元组类型的右括号放置一个问号来定义一个可选元组例如(Int, Int)?
+
+```
+func minMax(array: [Int]) -> (min: Int, max: Int) {
+    if array.isEmpty{ return nil }
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        } else {
+            currentMax = value
+        }
+    }
+    return (currentMin, currentMax)
+}
+```
+
+以上函数添加了个if语句来处理空数组问题
+
+#### 隐式返回的函数
+
+```
+func greeting(for person: String) -> String {
+    "Hello, " + person + "!"
+}
+print(greeting(for: "Dave"))
+//打印 "Hello, Dave!"
+```
+
+以上函数省略了return
+
+### 函数参数提示符和参数名称
+
+每个函数参数都有一个参数提示符和一个参数名称
+
+调用的时候参数提示符在参数名称前面
+
+```
+func someFunction(argumentLabel parameterName: Int) {
+    //parameterName代表参数值
+}
+```
+
+可以用_来省略参数提示符
 
